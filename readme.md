@@ -28,7 +28,6 @@ jobs:
           node-version: '20'
       - run: npm install
       - name: Running vite-size script
-        id: vite-size
         uses: glitch-txs/vite-size-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
