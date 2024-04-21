@@ -1,0 +1,12 @@
+name: 'vite-size-action'
+description: 'Calculate your library's bundle size.'
+inputs:
+  github_token:
+    required: true
+    description: 'a github access token.'
+outputs:
+  size:
+    description: 'The size of the bundle.'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
