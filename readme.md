@@ -18,7 +18,7 @@ on:
       - main
 
 jobs:
-  hello_world_job:
+  vite_size:
     runs-on: ubuntu-latest
     name: Run Vite Size
     steps:
@@ -27,9 +27,9 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
-      - name: Calling vite-size script
+      - name: Running vite-size script
         id: vite-size
-        uses: glitch-txs/test-action@v3.0.0
+        uses: glitch-txs/vite-size-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
