@@ -1,5 +1,5 @@
 name: 'vite-size-action'
-description: 'Calculate your library's bundle size.'
+description: 'Calculate your library bundle size.'
 inputs:
   github_token:
     required: true
