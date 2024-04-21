@@ -37,13 +37,16 @@ export async function exec_vite_size({ branch }: { branch?: string } = {}){
   const size_values: SizeValue = [['Name', 'Size (kb)', 'Gzip (kb)']]
 
   for(let i = 0; i < filtered_output.length; i++){
-    (total_size[1] as number) += Number(filtered_output[i].size);
-    (total_size[2] as number) += Number(filtered_output[i].gzip);
+    const _size = Number(parseFloat(filtered_output[i].size).toFixed(3));
+    const _gzip = Number(parseFloat(filtered_output[i].gzip).toFixed(3));
+
+    (total_size[1] as number) += _size;
+    (total_size[2] as number) += _gzip;
 
     size_values.push([
       filtered_output[i].name.toString(),
-      Number(filtered_output[i].size),
-      Number(filtered_output[i].gzip)
+      _size,
+      _gzip
     ])
   }
   size_values.push(total_size)
@@ -63,7 +66,7 @@ export function calcDiff({ current, base }: { current?: SizeValue, base?: SizeVa
   const current_size = Number(current[current.length - 1]?.[1])
   const current_gzip = Number(current[current.length - 1]?.[2])
   const base_size = Number(base[base.length - 1]?.[1])
-  const base_gzip = Number(current[current.length - 1]?.[2])
+  const base_gzip = Number(base[base.length - 1]?.[2])
 
   let size: string | number = Math.abs(current_size - base_size)
   let gzip: string | number = Math.abs(current_gzip - base_gzip)

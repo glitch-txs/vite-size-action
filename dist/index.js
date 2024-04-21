@@ -30459,12 +30459,14 @@ async function exec_vite_size({ branch } = {}) {
     const filtered_output = JSON.parse(stdout_output[stdout_output.length - 1]);
     const size_values = [['Name', 'Size (kb)', 'Gzip (kb)']];
     for (let i = 0; i < filtered_output.length; i++) {
-        total_size[1] += Number(filtered_output[i].size);
-        total_size[2] += Number(filtered_output[i].gzip);
+        const _size = Number(parseFloat(filtered_output[i].size).toFixed(3));
+        const _gzip = Number(parseFloat(filtered_output[i].gzip).toFixed(3));
+        total_size[1] += _size;
+        total_size[2] += _gzip;
         size_values.push([
             filtered_output[i].name.toString(),
-            Number(filtered_output[i].size),
-            Number(filtered_output[i].gzip)
+            _size,
+            _gzip
         ]);
     }
     size_values.push(total_size);
@@ -30481,7 +30483,7 @@ function calcDiff({ current, base }) {
     const current_size = Number(current[current.length - 1]?.[1]);
     const current_gzip = Number(current[current.length - 1]?.[2]);
     const base_size = Number(base[base.length - 1]?.[1]);
-    const base_gzip = Number(current[current.length - 1]?.[2]);
+    const base_gzip = Number(base[base.length - 1]?.[2]);
     let size = Math.abs(current_size - base_size);
     let gzip = Math.abs(current_gzip - base_gzip);
     if (current_size > base_size) {
