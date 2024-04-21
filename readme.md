@@ -7,7 +7,7 @@ Use GitHub Actions to get a comment on your PR's with tables showing information
 
 ## Configuration
 
-Setup a global script called `size` following [vite-size configuration steps](https://github.com/glitch-txs/vite-size?tab=readme-ov-file#vite-size)
+Set up a global script called `size` following [vite-size configuration steps](https://github.com/glitch-txs/vite-size?tab=readme-ov-file#vite-size)
 
 ## workflow
 
@@ -18,7 +18,7 @@ on:
       - main
 
 jobs:
-  hello_world_job:
+  vite_size:
     runs-on: ubuntu-latest
     name: Run Vite Size
     steps:
@@ -27,9 +27,8 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
-      - name: Calling vite-size script
-        id: vite-size
-        uses: glitch-txs/test-action@v3.0.0
+      - name: Running vite-size script
+        uses: glitch-txs/vite-size-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
