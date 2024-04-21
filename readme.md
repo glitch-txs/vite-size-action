@@ -7,7 +7,7 @@ Use GitHub Actions to get a comment on your PR's with tables showing information
 
 ## Configuration
 
-Setup a global script called `size` following [vite-size configuration steps](https://github.com/glitch-txs/vite-size?tab=readme-ov-file#vite-size)
+Set up a global script called `size` following [vite-size configuration steps](https://github.com/glitch-txs/vite-size?tab=readme-ov-file#vite-size)
 
 ## workflow
 
