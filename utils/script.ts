@@ -31,14 +31,14 @@ export async function exec_vite_size({ branch }: { branch?: string } = {}){
   
   if(status > 0) return { status, size_values: undefined }
 
-  const total_size = ['Total Size', 0, 0]
+  const total_size: (number | string)[] = ['Total Size', 0, 0]
   const filtered_output = JSON.parse(stdout_output[stdout_output.length - 1] as string)
 
   const size_values: SizeValue = [['Name', 'Size (kb)', 'Gzip (kb)']]
 
   for(let i = 0; i < filtered_output.length; i++){
-    const _size = Number(parseFloat(filtered_output[i].size).toFixed(3));
-    const _gzip = Number(parseFloat(filtered_output[i].gzip).toFixed(3));
+    const _size = Number(filtered_output[i].size);
+    const _gzip = Number(filtered_output[i].gzip);
 
     (total_size[1] as number) += _size;
     (total_size[2] as number) += _gzip;
@@ -48,7 +48,10 @@ export async function exec_vite_size({ branch }: { branch?: string } = {}){
       _size,
       _gzip
     ])
-  }
+  };
+
+  total_size[1] = toFixed(total_size[1] as number);
+  total_size[2] = toFixed(total_size[2] as number);
   size_values.push(total_size)
 
   return {
@@ -68,8 +71,8 @@ export function calcDiff({ current, base }: { current?: SizeValue, base?: SizeVa
   const base_size = Number(base[base.length - 1]?.[1])
   const base_gzip = Number(base[base.length - 1]?.[2])
 
-  let size: string | number = Math.abs(current_size - base_size)
-  let gzip: string | number = Math.abs(current_gzip - base_gzip)
+  let size: string | number = toFixed(Math.abs(current_size - base_size))
+  let gzip: string | number = toFixed(Math.abs(current_gzip - base_gzip))
 
   if(current_size > base_size){
     size = '🔺+' + size
@@ -85,4 +88,8 @@ export function calcDiff({ current, base }: { current?: SizeValue, base?: SizeVa
       ['Total Diff.', size, gzip]
     ]
   }
+}
+
+function toFixed(value: string | number, decimal: number = 3){
+  return  Number(parseFloat(value.toString()).toFixed(decimal))
 }
